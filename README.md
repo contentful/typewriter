@@ -7,6 +7,13 @@ Summary of changes:
 
 Use this package with `npx @contentful/typewriter`.
 
+Since this repo will likely only rarely be changed publishing happens manually.To publish a new version of this package increment the version in package.json and run:
+
+```sh
+  yarn build
+  npm publish
+```
+
 <p align="center">
 	<br>
 	<br>

@@ -1,6 +1,6 @@
 {
   "name": "@contentful/typewriter",
-  "version": "9.2.0",
+  "version": "9.2.1",
   "description": "A compiler for generating strongly typed analytics clients via Segment Protocols",
   "author": "Oscar Bazaldua <oscar.bazaldua@segment.com>",
   "bin": {
