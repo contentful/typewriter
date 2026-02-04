@@ -1,3 +1,19 @@
+## Contentful Fork
+
+This repository is fork of Segment Typewriter.
+
+Summary of changes:
+- Reuse cached Ajv validators during runtime schema validation to avoid recompilation overhead.
+
+Use this package with `npx @contentful/typewriter`.
+
+Since this repo will likely only rarely be changed publishing happens manually.To publish a new version of this package increment the version in package.json and run:
+
+```sh
+  yarn build
+  npm publish
+```
+
 <p align="center">
 	<br>
 	<br>
