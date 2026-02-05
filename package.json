@@ -41,7 +41,7 @@
     "lodash": "^4.17",
     "node-machine-id": "^1.1.12",
     "quicktype-core": "^6.0.71",
-    "semver": "^7.3",
+    "semver": "^7.5",
     "sort-keys": "^4.2.0",
     "terminal-link": "^2",
     "typescript": "*",
