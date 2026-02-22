@@ -28,7 +28,7 @@
     "@npmcli/ci-detect": "^2.0.0",
     "@oclif/core": "^1.7",
     "@segment/analytics-node": "^1.0.0-beta.26",
-    "ajv": "^8.11.0",
+    "ajv": "^8.18.0",
     "chalk": "^4",
     "debug": "^4.3.4",
     "figures": "^3",
