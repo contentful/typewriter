@@ -1,0 +1,17 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: typewriter
+  description: A compiler for generating strongly typed analytics clients via Segment Protocols.
+  annotations:
+    github.com/project-slug: contentful/typewriter
+  tags:
+    - node
+    - typescript
+    - cli
+    - library
+    - analytics
+spec:
+  type: library
+  lifecycle: production
+  owner: group:team-core-ai

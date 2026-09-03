@@ -1,0 +1,17 @@
+name: Agents Kit update
+
+on:
+  pull_request:
+    paths:
+      - package.json
+      - yarn.lock
+
+jobs:
+  agents-kit-skills-install:
+    permissions:
+      contents: write
+      id-token: write
+      packages: read
+      pull-requests: read
+    uses: contentful/developer-platform/.github/workflows/job-agents-kit-update.yaml@main
+    secrets: inherit

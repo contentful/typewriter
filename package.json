@@ -48,6 +48,7 @@
     "yaml": "^2.3.1"
   },
   "devDependencies": {
+    "@contentful/agents-kit": "^1.0.0",
     "@oclif/test": "^2.1",
     "@segment/analytics-next": "^1.51.6",
     "@segment/analytics-react-native": "^2.2.1",
@@ -82,7 +83,9 @@
     "stdout-stderr": "^0.1.13",
     "ts-jest": "^28",
     "ts-node": "^10.7",
-    "tslib": "^2.4"
+    "tslib": "^2.4",
+    "@contentful/agents-skill-repository-bundle": "0.2.0",
+    "@contentful/agents-skill-repo-cartographer": "latest"
   },
   "oclif": {
     "bin": "typewriter",
@@ -120,5 +123,30 @@
     "segment",
     "analytics"
   ],
-  "types": "dist/index.d.ts"
+  "types": "dist/index.d.ts",
+  "agentsKit": {
+    "$schema": "./node_modules/@contentful/agents-kit/schema.json",
+    "version": 2,
+    "skills": {
+      "uses": {
+        "agents": [
+          "codex"
+        ],
+        "sources": [
+          {
+            "type": "package",
+            "name": "@contentful/agents-skill-repository-bundle"
+          },
+          {
+            "type": "package",
+            "name": "@contentful/agents-kit"
+          },
+          {
+            "type": "package",
+            "name": "@contentful/agents-skill-repo-cartographer"
+          }
+        ]
+      }
+    }
+  }
 }

@@ -1,0 +1,3 @@
+Review first as the owner of the cached-validator behavior that justifies this Contentful fork. Prevent regressions that would make bulk AI actions recompile AJV schemas for every validated event.
+
+Prioritize module-level AJV reuse, schema `$id` cache identity, analytics-js/analytics-node parity, and development-only AJV output. Then review generated API behavior, backward compatibility, safe file replacement, token handling, and cross-language consistency over style preferences. Explain the concrete consumer impact of each finding and name the smallest verifiable correction. If the change preserves documented behavior and introduces no actionable issue, say that no issues were found.
