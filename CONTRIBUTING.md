@@ -1,12 +1,90 @@
+# Contributing to the Contentful Typewriter Fork
+
+## Conventions
+
+- **Commits** — follow `$contentful-git-commit`.
+- **Branches** — use `<type>/<JIRA-key>-<short-description>`, matching the Contentful fork branch recorded by merge commit `fa2912d`.
+- **Pull requests** — follow `$contentful-github-create-pull-request`.
+
+Without those skills: recent fork commits use Conventional Commit-style subjects, and pull requests target `master` as configured in `.github/workflows/ci.yml`.
+
+## Specialized Procedures
+
+### Change the AJV validator cache
+
+Cached validators are the reason Contentful maintains this fork. Without reuse, bulk AI actions would compile the same event schema during every runtime validation and their performance would degrade severely.
+
+The implementation must remain equivalent in:
+
+- `src/languages/templates/typescript/analytics-js.hbs`
+- `src/languages/templates/typescript/node.hbs`
+
+When changing either template:
+
+1. Keep the AJV instance and `Map<string, ValidateFunction>` outside `validateAgainstSchema`.
+2. Look up the validator by schema `$id` before calling `ajv.compile()`.
+3. Cache a newly compiled validator when `$id` exists; schemas without `$id` remain uncached.
+4. Preserve the existing `onViolation` behavior and the `isDevelopment` guard.
+5. Run:
+   ```bash
+   yarn test
+   ```
+6. Review analytics-js and analytics-node snapshots. Confirm repeated events take the cache-hit path and production snapshots contain no AJV validation code.
+
+Treat any return to per-event AJV construction or schema compilation as a high-severity performance regression.
+
+### Change generated-client output
+
+1. Change the relevant generator in `src/languages/` or its Handlebars template.
+2. Keep the standard generated header so cleanup can identify generated files.
+3. Run:
+   ```bash
+   yarn test   # source: package.json → scripts.test
+   ```
+4. Review snapshot changes for every affected language and SDK. Do not accept unrelated generated diffs.
+
+### Regenerate Typewriter telemetry
+
+```bash
+yarn build:telemetry   # source: package.json → scripts.build:telemetry
+```
+
+This command regenerates `src/telemetry/segment.ts` from the repository's `typewriter.yml` and `src/telemetry/plan.json`.
+
+### Publish the Contentful fork
+
+Publishing is manual and requires explicit approval.
+
+```bash
+yarn build    # source: package.json → scripts.build
+npm publish   # source: README.md → Contentful Fork
+```
+
+Increment `package.json` before publishing. The package is restricted to GitHub Packages and requires an authorized `GITHUB_TOKEN` through `.npmrc`.
+
+## File-Level Guidance
+
+| Path | Why restricted |
+| --- | --- |
+| `src/telemetry/segment.ts` | Generated telemetry client; regenerate it instead of hand-editing. |
+| `src/languages/templates/` | Changes alter generated consumer APIs across SDK targets. |
+| `src/languages/quicktype-utils.ts` | Shared generation logic affects every target language. |
+| `src/commands/build.ts` generated header | The header is the deletion guard for stale output cleanup. |
+| `src/__tests__/commands/__snapshots__/` | Generated API expectations; review changes rather than updating blindly. |
+
+## Existing Contributor Guide
+
+The content below preserves the inherited contributor guide for team review, with broken local links and command-path typos corrected. Some commands, including `yarn release`, are absent from the current `package.json`; follow the Contentful procedures above when they conflict.
+
 # Thanks for taking the time to contribute to Typewriter!
 
 This doc provides a walkthrough of developing on, and contributing to, Typewriter.
 
-Please see our [issue template](ISSUE_TEMPLATE.md) for issues specifically.
+Please see our [issue template](./.github/ISSUE_TEMPLATE.md) for issues specifically.
 
 ## Issues, Bugfixes and New Language Support
 
-Have an idea for improving Typewriter? [Submit an issue first](https://github.com/segmentio/typewriter/issues/new), and we'll be happy to help you scope it out and make sure it is a good fit for Typewriter.
+Have an idea for improving Typewriter? [Submit an issue first](https://github.com/contentful/typewriter/issues/new), and we'll be happy to help you scope it out and make sure it is a good fit for Typewriter.
 
 ## Developing on Typewriter
 
@@ -16,16 +94,17 @@ Typewriter is written using [OCLIF](https://oclif.io).
 
 ```sh
 # Install dependencies
-$ yarn
+$ yarn install --frozen-lockfile
 # Test your Typewriter installation by regenerating Typewriter's typewriter client.
 $ yarn build
 # Develop and test using OCLIFs dev runner to test any of your changes without transpiling
-# This will build Typewriter's own TrackingPlan (src/telemetry/plan.json) with the root dir configuration (typewriter.yml)
-$ ./bin/dev build -m prod -u
+# This builds Typewriter's own Tracking Plan (src/telemetry/plan.json) from the root configuration (typewriter.yml).
+$ ./bin/dev build -m prod
+# Add -u only with approval and valid Segment credentials; it refreshes local plan data from Segment.
 # You can run any command and debug locally using the `bin/dev` command:
 $ mkdir myOwnClient && cd myOwnClient
-$ ../bin/dev init # To initialize a new TW client
-$ ../bind/dev build # To build this client
+$ ../bin/dev init # Requires approval and valid Segment credentials; contacts Segment.
+$ ../bin/dev build # To build this client
 ```
 
 ### Running Tests
@@ -53,9 +132,9 @@ $ yarn release
 
 ### Adding a New Language Target
 
-> Before working towards adding a new language target, please [open an issue on GitHub](https://github.com/segmentio/typewriter/issues/new) that walks through your proposal for the new language support. See the [issue template](ISSUE_TEMPLATE.md) for details.
+> Before working towards adding a new language target, please [open an issue on GitHub](https://github.com/contentful/typewriter/issues/new) that walks through your proposal for the new language support. See the [issue template](./.github/ISSUE_TEMPLATE.md) for details.
 
-All languages are just objects that implement the [`LanguageGenerator`](src/languages/types.ts) interface. We have a [quick an easy way](#using-quicktype) to use [Handlebars](http://handlebarsjs.com/) and [Quicktype](quicktype.io) which should cover most of the scenarios but you can always write your own [renderer](#using-a-custom-renderer).
+All languages are just objects that implement the [`LanguageGenerator`](src/languages/types.ts) interface. We have a [quick an easy way](#using-quicktype) to use [Handlebars](http://handlebarsjs.com/) and [Quicktype](https://quicktype.io) which should cover most of the scenarios but you can always write your own [renderer](#using-a-custom-renderer).
 
 #### Using QuickType
 

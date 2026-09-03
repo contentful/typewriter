@@ -1,0 +1,5 @@
+Cached AJV validators are the primary invariant of this Contentful fork. They protect bulk AI action performance. Flag as high severity any change that constructs AJV or compiles the same schema in the per-event validation path, removes the schema `$id` cache identity, changes only one of the analytics-js and analytics-node templates, or emits AJV code in production output.
+
+Generated outputs must retain the Typewriter warning header because cleanup uses it as the deletion guard.
+
+Do not hand-edit src/telemetry/segment.ts or other generated analytics clients. Preserve local-plan fallback, v7 tracking-plan ID compatibility, and confirmation before config migration writes unless the change is explicitly breaking. Review shared Quicktype utility changes across every language target and SDK snapshot. Treat publish and real Segment update operations as approval-gated external effects.

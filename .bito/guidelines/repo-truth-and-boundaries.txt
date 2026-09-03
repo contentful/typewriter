@@ -1,0 +1,3 @@
+Use README.md for supported setup and test commands, ARCHITECTURE.md for flows and integration boundaries, AGENTS.md for non-negotiable guardrails, CONTRIBUTING.md for generation and release procedures, and docs/ADRs/ for decision rationale.
+
+Flag changes when implementation and documentation diverge. Treat generated consumer APIs as public contracts and internal oclif orchestration as implementation detail. Require an ADR when a change reverses a recorded architecture decision.
