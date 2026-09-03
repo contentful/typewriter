@@ -94,7 +94,7 @@ Typewriter is written using [OCLIF](https://oclif.io).
 
 ```sh
 # Install dependencies
-$ yarn install --frozen-lockfile
+$ yarn install --frozen-lockfile --ignore-engines
 # Test your Typewriter installation by regenerating Typewriter's typewriter client.
 $ yarn build
 # Develop and test using OCLIFs dev runner to test any of your changes without transpiling

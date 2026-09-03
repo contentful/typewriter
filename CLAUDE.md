@@ -19,11 +19,11 @@ Read [ARCHITECTURE.md](./ARCHITECTURE.md) for the fork-specific flow. The inheri
 
 | Task | Command | Non-obvious requirement |
 | --- | --- | --- |
-| Install | `yarn install --frozen-lockfile` | Match the GitHub Actions install path; `packageManager` is not pinned. |
+| Install | `yarn install --frozen-lockfile --ignore-engines` | Match the GitHub Actions install path; Agents Kit is dev-only tooling with a newer Node requirement. |
 | Regenerate telemetry | `yarn build:telemetry` | Rewrites the generated `src/telemetry/segment.ts` client. |
 | Publish | `npm publish` | Ask first; this publishes a restricted GitHub Packages release. |
 
-Use Node 18 from `.nvmrc`. CI also covers Node 20 and 21 (`.github/workflows/ci.yml`).
+Use Node 18 from `.nvmrc`. CI also covers Node 20 and 21 (`.github/workflows/ci.yml`). Run Agents Kit commands under a compatible newer Node runtime; do not raise Typewriter's runtime requirement just for repository tooling.
 
 ## Upstream Boundaries
 
@@ -39,9 +39,7 @@ Respect these boundaries:
 
 ## Conventions
 
-- Follow `$contentful-git-commit` for commits.
 - Use branches shaped like `<type>/<JIRA-key>-<description>`.
-- Follow `$contentful-github-create-pull-request` for pull requests.
 - Preserve the existing mixed quote style unless the touched file's formatter or linter normalizes it.
 - Do not restyle unrelated inherited code.
 
