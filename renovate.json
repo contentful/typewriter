@@ -1,0 +1,3 @@
+{
+  "extends": ["local>contentful/renovate-config"]
+}
