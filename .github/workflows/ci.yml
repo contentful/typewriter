@@ -8,6 +8,8 @@ on:
 jobs:
   cancel_previous:
     runs-on: ubuntu-latest
+    permissions:
+      actions: write
     steps:
     - uses: styfle/cancel-workflow-action@a40b8845c0683271d9f53dfcb887a7e181d3918b # 0.9.1
       with:

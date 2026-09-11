@@ -13,5 +13,5 @@ jobs:
       id-token: write
       packages: read
       pull-requests: read
-    uses: contentful/developer-platform/.github/workflows/job-agents-kit-update.yaml@main
+    uses: contentful/developer-platform/.github/workflows/job-agents-kit-update.yaml@4446d81c9645df1a7f106acfb1645540302435d3
     secrets: inherit
