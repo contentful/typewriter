@@ -28,12 +28,16 @@ jobs:
         node-version: [ 18, 20, 21 ]
     steps: 
       - uses: actions/checkout@v3
+      # Makes `yarn` resolve to the version pinned in `packageManager` (Yarn 4). It has to run before
+      # setup-node, which asks Yarn for its cache folder.
+      - name: Enable Corepack
+        run: corepack enable
       - uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
           cache: yarn
       - name: Install
-        run: yarn install --frozen-lockfile --ignore-engines
+        run: yarn install --immutable
       - name: Lint
         run: yarn lint
       - name: Build
