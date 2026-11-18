@@ -19,7 +19,7 @@ Read [ARCHITECTURE.md](./ARCHITECTURE.md) for the fork-specific flow. The inheri
 
 | Task | Command | Non-obvious requirement |
 | --- | --- | --- |
-| Install | `yarn install --frozen-lockfile --ignore-engines` | Match the GitHub Actions install path; Agents Kit is dev-only tooling with a newer Node requirement. |
+| Install | `yarn install --immutable` (after `corepack enable`) | Match the GitHub Actions install path; Agents Kit is dev-only tooling with a newer Node requirement. |
 | Regenerate telemetry | `yarn build:telemetry` | Rewrites the generated `src/telemetry/segment.ts` client. |
 | Publish | `npm publish` | Ask first; this publishes a restricted GitHub Packages release. |
 

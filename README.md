@@ -23,13 +23,13 @@ The main maintenance rule for this repository is: **never move AJV construction 
 | Tool | Version | Notes |
 | --- | --- | --- |
 | Node.js | 18 (see `.nvmrc`) | Run `nvm use`; Agents Kit is dev-only tooling and requires a newer runtime when invoked directly. |
-| Yarn | Not pinned | CI uses Yarn with the committed `yarn.lock`. |
-| GitHub Packages token | Authorized for `@contentful` | Export `GITHUB_TOKEN`; `.npmrc` reads it. |
+| Yarn | 4 (pinned in `package.json`) | Run `corepack enable` once; CI installs with the committed `yarn.lock`. |
+| GitHub Packages token | Authorized for `@contentful` | Export `GITHUB_TOKEN`; `.yarnrc.yml` reads it for installs and `.npmrc` for `npm publish`. |
 
 ```bash
 git clone git@github.com:contentful/typewriter.git
 cd typewriter
-yarn install --frozen-lockfile --ignore-engines   # source: .github/workflows/ci.yml
+yarn install --immutable         # source: .github/workflows/ci.yml
 yarn build                       # source: package.json → scripts.build
 ```
 

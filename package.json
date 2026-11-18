@@ -3,9 +3,7 @@
   "version": "9.2.1",
   "description": "A compiler for generating strongly typed analytics clients via Segment Protocols",
   "author": "Oscar Bazaldua <oscar.bazaldua@segment.com>",
-  "bin": {
-    "typewriter": "./bin/run"
-  },
+  "bin": "./bin/run",
   "repository": {
     "type": "git",
     "url": "https://github.com/contentful/typewriter"
@@ -49,6 +47,8 @@
   },
   "devDependencies": {
     "@contentful/agents-kit": "^1.0.0",
+    "@contentful/agents-skill-repo-cartographer": "0.1.0",
+    "@contentful/agents-skill-repository-bundle": "0.2.0",
     "@oclif/test": "^2.1",
     "@segment/analytics-next": "^1.51.6",
     "@segment/analytics-react-native": "^2.2.1",
@@ -83,9 +83,7 @@
     "stdout-stderr": "^0.1.13",
     "ts-jest": "^28",
     "ts-node": "^10.7",
-    "tslib": "^2.4",
-    "@contentful/agents-skill-repository-bundle": "0.2.0",
-    "@contentful/agents-skill-repo-cartographer": "latest"
+    "tslib": "^2.4"
   },
   "oclif": {
     "bin": "typewriter",
@@ -148,5 +146,6 @@
         ]
       }
     }
-  }
+  },
+  "packageManager": "yarn@4.18.1+sha512.b2e1e7524f654f2749d32b4ebcb4622473cb5bcbc485df2007e12a154e50162a4d795526768bc5f5b8f81717bfd79deb2472813d86fb5ae2eb551fa9c872b08f"
 }
